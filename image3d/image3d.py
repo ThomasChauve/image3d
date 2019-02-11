@@ -22,24 +22,33 @@ class image3d(object):
         return
 		
     
-    def xcorr3d(self,pad=1):
+    def xcorr3d(self,pad=1,rad_Tukey=0):
         '''
         3d autocorrelation
-        :return: Autocor3d
-        :rtype: image3d
-        :return: Cinf
-        :rtype: float
+        :param pad: Pading value 1 or 2
+        :type pad: int
+        :param rad_Tukey: radius for the Tukey function (pixel) (attenuation function : https://fr.mathworks.com/help/signal/ref/tukeywin.html)
+        :type rad_Tukey: int
+        :return: Autocorrelation function
+        :rtype: xcorr3d.xcorr3d
         '''
         
         import image3d.xcorr3d as xcorr3d
         mean_data=np.nanmean(self.im)
         
-        if pad==1:
-            An=np.fft.ifftn(np.abs(np.fft.fftn(self.im))**2)
-            Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-            Cinf=mean_data**2/np.mean(self.im**2)
-        elif pad==2:
+        if rad_Tukey!=0:
             ss=np.shape(self.im)
+            coeff=tukeywin3D(ss,rad_Tukey)
+            map=self.im*coeff
+        else:
+            map=self.im
+        
+        if pad==1:
+            An=np.fft.ifftn(np.abs(np.fft.fftn(map))**2)
+            Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
+            Cinf=mean_data**2/np.mean(map**2)
+        elif pad==2:
+            ss=np.shape(map)
             sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
             mpad=np.ones(sn)*mean_data
             mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
@@ -101,3 +110,29 @@ class image3d(object):
         	plt.axis('equal')
         	plt.colorbar(img,orientation='vertical',aspect=4)
         	return img
+                                                 
+                                                 
+# Function                                               
+def tukeywin3D(ss,rad_Tukey):
+
+	iid=np.concatenate((np.linspace(0,rad_Tukey-1,rad_Tukey),np.linspace(ss[0]-rad_Tukey,ss[0]-1,rad_Tukey)))
+	jid=np.concatenate((np.linspace(0,rad_Tukey-1,rad_Tukey),np.linspace(ss[1]-rad_Tukey,ss[1]-1,rad_Tukey)))
+	kid=np.concatenate((np.linspace(0,rad_Tukey-1,rad_Tukey),np.linspace(ss[2]-rad_Tukey,ss[2]-1,rad_Tukey)))
+
+	rid=np.concatenate((np.linspace(0,rad_Tukey-1,rad_Tukey),np.linspace(rad_Tukey-1,0,rad_Tukey)))
+
+	coeff=np.ones(ss)
+	r2=np.zeros(ss)*np.nan
+	
+	for i in list(range(2*rad_Tukey)):
+		r2[int(iid[i]),:,:]=rid[i]
+	for i in list(range(2*rad_Tukey)):
+		r2[int(rid[i]):ss[0]-int(rid[i]),int(jid[i]),:]=rid[i]
+	for i in list(range(2*rad_Tukey)):
+		r2[int(rid[i]):ss[0]-int(rid[i]),int(rid[i]):ss[1]-int(rid[i]),int(kid[i])]=+rid[i]
+
+	id=~np.isnan(r2)
+
+	coeff[id]=0.5*(1.+np.cos(np.pi/rad_Tukey*(r2[id]-rad_Tukey)))	
+
+	return coeff
