@@ -22,7 +22,7 @@ class image3d(object):
         return
 		
     
-    def xcorr3d(self,pad=1,rad_Tukey=0):
+    def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True):
         '''
         3d autocorrelation
         :param pad: Pading value 1 or 2
@@ -43,20 +43,21 @@ class image3d(object):
         else:
             map=self.im
         
-        if pad==1:
-            An=np.fft.ifftn(np.abs(np.fft.fftn(map))**2)
-            Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-            Cinf=mean_data**2/np.mean(map**2)
-        elif pad==2:
-            ss=np.shape(map)
-            sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
-            mpad=np.ones(sn)*mean_data
-            mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
-            An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
-            Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-            Cinf=mean_data**2/np.mean(mpad**2)
-        else:
-            return 'you should not do pad higher than 2, but if you think your machine can handle it do it yourself '
+        if gray_level:
+            if pad==1:
+                An=np.fft.ifftn(np.abs(np.fft.fftn(map))**2)
+                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
+                Cinf=mean_data**2/np.mean(map**2)
+            elif pad==2:
+                ss=np.shape(map)
+                sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
+                mpad=np.ones(sn)*mean_data
+                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
+                An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
+                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
+                Cinf=mean_data**2/np.mean(mpad**2)
+            else:
+                return 'you should not do pad higher than 2, but if you think your machine can handle it do it yourself '
             
         return xcorr3d.xcorr3d(Autocor,self.res,Cinf)
 

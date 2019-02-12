@@ -84,7 +84,7 @@ class xcorr3d(im3d.image3d):
         plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
         return
     
-    def stereographic_corr_length(self,output='No',coeffCinf=np.array([1]),pc=10):
+    def stereographic_corr_length(self,output='No',coeffCinf=np.array([1]),pc=10,usePI=False):
         '''
         :param output: Destination of the figure file
         :type output: str
@@ -92,6 +92,8 @@ class xcorr3d(im3d.image3d):
         :type coeffCinf: np.array
         :param pc: percentage of highest orientation taken in the statistic (Between 0 and 100)
         :type pc: float
+        :param usePI: compute the autocorrelation radius using the "Porte Integrale" (default False) overwise It compute the intersection between Cinf and Ax
+        :type usePI: bool
         '''
         val=uniform_dist.unidist
         dim=int(np.size(val)/3)
@@ -140,12 +142,15 @@ class xcorr3d(im3d.image3d):
             ze=init[2]+vtot.vector[i,2]*rmax
             end=np.array([xe,ye,ze])
             [res,xl]=self.extract_profil(init,end)
-            for j in list(range(nbimg)): # loop for the differente value of Cinf
-                id=np.where(res < self.Cinf*coeffCinf[j])
-                if np.size(id)==0:
-                    xmin[i,j]=np.inf
-                else:
-                    xmin[i,j]=xl[id[0][0]]
+            if usePI:
+                xmin[i,j]=2.*np.trapz(res-self.Cinf*coeffCinf[j],xl)
+            else:
+                for j in list(range(nbimg)): # loop for the differente value of Cinf
+                    id=np.where(res < self.Cinf*coeffCinf[j])
+                    if np.size(id)==0:
+                        xmin[i,j]=np.inf
+                    else:
+                        xmin[i,j]=xl[id[0][0]]
         #############################           
         ### Compute the statistics ##
         #############################
@@ -161,7 +166,7 @@ class xcorr3d(im3d.image3d):
             val=np.nanpercentile(xmin[:,j],100.-pc) # Find the limite for correlation raidus
             id=np.where(xmin[0:nb_points-tot,j]>val) # Find the position for the orientation higher than the correlation radius. I remove the evaluation on the cicle that I add to be sure that a sampling my sphere hogeneusly
             vmax=sv3d.setvector3d(vtot.vector[id[0],:])
-            vmax.stereoplot()
+            #vmax.stereoplot()
             # statistic about radius correlation
             radiusmean[j]=np.nanmean(vtot.vector[id[0],j])
             radiusstd[j]=np.nanstd(vtot.vector[id[0],j])
