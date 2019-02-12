@@ -142,10 +142,11 @@ class xcorr3d(im3d.image3d):
             ze=init[2]+vtot.vector[i,2]*rmax
             end=np.array([xe,ye,ze])
             [res,xl]=self.extract_profil(init,end)
-            if usePI:
-                xmin[i,j]=2.*np.trapz(res-self.Cinf*coeffCinf[j],xl)
-            else:
-                for j in list(range(nbimg)): # loop for the differente value of Cinf
+            
+            for j in list(range(nbimg)): # loop for the differente value of Cinf
+                if usePI:
+                    xmin[i,j]=2.*np.trapz(res-self.Cinf*coeffCinf[j],xl)
+                else:
                     id=np.where(res < self.Cinf*coeffCinf[j])
                     if np.size(id)==0:
                         xmin[i,j]=np.inf
