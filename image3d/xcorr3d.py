@@ -194,15 +194,33 @@ class xcorr3d(im3d.image3d):
         angle=np.array([90.,60.,30.])
         rci=2.*np.sin(angle/2.*np.pi/180.)
         
-		        
+             
         for j in list(range(nbimg)):
             plt.figure(figsize=(10,10),dpi=160)
             triang = tri.Triangulation(xx, yy)
-            plt.tricontour(xx, yy, xmin[:,j], 10, linewidths=0.5, colors='k')
-            plt.tricontourf(xx, yy, xmin[:,j], 10)
+            zz=xmin[:,j]
+            mm=np.max(zz[~np.isinf(zz)])
+            zz[np.isinf(zz)]=mm
+            ##### Deal with inf value
+            plt.tricontourf(triang, zz, 10)
+            plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
+            print(np.where(zz==mm)[0].shape)
+            if len(np.where(zz==mm)[0])>1:
+                idd=np.where(zz==mm)
+                zzm=np.ones(zz.shape)
+                zzm[idd]=0                
+                plt.tricontourf(triang, zzm, 10,cmap=cm.binary_r)
+                plt.clim(1,1)
+                print('I am here')
+                
+                
+            
+            #idinf=np.isinf(xmin[:,j])
+            #plt.contourf(xx[~idinf],yy[~idinf], xmin[~idinf,j], 10)
+            #plt.contourf(xx[idinf],yy[idinf], -np.ones(np.sum(idinf)), 10)
             ### STOP HERE ####
             #plt.clim(np.min(Zc[:])-1., np.max(Zc[:])+1.)
-            plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
+           
             # compute a 3 circle
             
             

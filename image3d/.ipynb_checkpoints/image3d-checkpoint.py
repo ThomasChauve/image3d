@@ -95,18 +95,18 @@ class image3d(object):
         
 	        ss=np.shape(self.im)
         
-	        if (axis=='Z'):
+	        if (axis=='X'):
         		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[1]*self.res))
-        		plt.xlabel('+X')
+        		plt.xlabel('+Z')
         		plt.ylabel('-Y')
         	elif (axis=='Y'):
             		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[2]*self.res))
-            		plt.xlabel('+X')
-            		plt.ylabel('-Z')
-        	elif (axis=='X'):
+            		plt.xlabel('+Z')
+            		plt.ylabel('-X')
+        	elif (axis=='Z'):
             		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[2]*self.res))
             		plt.xlabel('+Y')
-            		plt.ylabel('-Z')
+            		plt.ylabel('-X')
         
         	plt.axis('equal')
         	plt.colorbar(img,orientation='vertical',aspect=4)
