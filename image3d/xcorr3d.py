@@ -131,15 +131,16 @@ class xcorr3d(im3d.image3d):
         nb_points=np.shape(vtot.vector)[0]
         nbimg=np.size(coeffCinf)
         xmin=np.zeros([nb_points,nbimg])
+        rmax=np.zeros(nb_points)
         
 		
         for i in list(range(nb_points)): # loop for the differente direction in autocorrelation function
             b=np.array([abs(vtot.vector[i,0]),abs(vtot.vector[i,1]),abs(vtot.vector[i,2])])
             idb=np.where(b!=0)
-            rmax=np.min(a[idb[0]]/b[idb[0]])
-            xe=init[0]+vtot.vector[i,0]*rmax
-            ye=init[1]+vtot.vector[i,1]*rmax
-            ze=init[2]+vtot.vector[i,2]*rmax
+            rmax[i]=np.min(a[idb[0]]/b[idb[0]])
+            xe=init[0]+vtot.vector[i,0]*rmax[i]
+            ye=init[1]+vtot.vector[i,1]*rmax[i]
+            ze=init[2]+vtot.vector[i,2]*rmax[i]
             end=np.array([xe,ye,ze])
             [res,xl]=self.extract_profil(init,end)
             
@@ -277,7 +278,7 @@ class xcorr3d(im3d.image3d):
                 
                 
                 
-        return eigvalue,eigvector,radiusmean,radiusstd,xmin
+        return eigvalue,eigvector,radiusmean,radiusstd,xmin,rmax
     
     
     
