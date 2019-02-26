@@ -50,7 +50,15 @@ class image3d(object):
                 Cinf=mean_data**2/np.mean(map**2)
             elif pad==2:
                 ss=np.shape(map)
-                sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
+                sn=np.array([np.int(ss[0]*pad,ss[1]*pad,ss[2]*pad])
+                mpad=np.ones(sn)*mean_data
+                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
+                An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
+                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
+                Cinf=mean_data**2/np.mean(mpad**2)
+            elif (pad>1)and(pad<2):
+                ss=np.shape(map)
+                sn=np.array([int(ss[0]*pad),int(ss[1]*pad),int(ss[2]*pad)])
                 mpad=np.ones(sn)*mean_data
                 mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
                 An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
