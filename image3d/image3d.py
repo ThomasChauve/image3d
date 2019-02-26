@@ -50,7 +50,7 @@ class image3d(object):
                 Cinf=mean_data**2/np.mean(map**2)
             elif pad==2:
                 ss=np.shape(map)
-                sn=np.array([np.int(ss[0]*pad,ss[1]*pad,ss[2]*pad])
+                sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
                 mpad=np.ones(sn)*mean_data
                 mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
                 An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
