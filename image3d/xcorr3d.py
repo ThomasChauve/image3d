@@ -166,10 +166,10 @@ class xcorr3d(im3d.image3d):
         
         for j in list(range(nbimg)): # loop for the differente value of Cinf
             val=np.nanpercentile(xmin[:,j],100.-pc) # Find the limite for correlation raidus
-                if np.isinf(val):
-                    id=np.where(np.isinf(xmin[0:nb_points-tot,j]))
-                else:
-                    id=np.where(xmin[0:nb_points-tot,j]>val) # Find the position for the orientation higher than the correlation radius. I remove the evaluation on the cicle that I add to be sure that a sampling my sphere hogeneusly
+            if np.isinf(val):
+                id=np.where(np.isinf(xmin[0:nb_points-tot,j]))
+            else:
+                id=np.where(xmin[0:nb_points-tot,j]>val) # Find the position for the orientation higher than the correlation radius. I remove the evaluation on the cicle that I add to be sure that a sampling my sphere hogeneusly
             vmax=sv3d.setvector3d(vtot.vector[id[0],:])
             #vmax.stereoplot()
             # statistic about radius correlation
