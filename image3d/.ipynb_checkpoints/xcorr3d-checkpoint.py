@@ -6,6 +6,7 @@ import matplotlib.cm as cm
 import image3d.uniform_dist as uniform_dist
 import setvector3d.setvector3d as sv3d
 import matplotlib.tri as tri
+import skimage.feature as skf
 
 class xcorr3d(im3d.image3d):
     '''
@@ -29,7 +30,35 @@ class xcorr3d(im3d.image3d):
         self.res=res
         self.Cinf=Cinf
         return
-
+    
+    def local_maxima(self,nb=20,win=20):
+        '''
+        Detect the local maximum of the autocorrelation function
+        :param th: threshold percentage in the range [Cinf 1]
+        :type th: float
+        :param win: windows size for filter NxNxN
+        :type win: int
+        '''
+                
+        coordinates = skf.peak_local_max(self.im, min_distance=win,indices=True,exclude_border=False,num_peaks=nb,threshold_abs=self.Cinf)
+        
+        ss=np.shape(self.im)
+        vec=np.zeros(np.shape(coordinates))
+        vec[:,0]=coordinates[:,0]-ss[0]/2
+        vec[:,1]=coordinates[:,1]-ss[1]/2
+        vec[:,2]=coordinates[:,2]-ss[2]/2
+        id=np.where((vec[:,2]>0)*(np.sum(~np.isnan(vec),axis=1)>0) )
+        
+        vc=sv3d.setvector3d(vec[id[0],:])
+        coordinates=coordinates[id[0],:]
+        val=np.zeros(coordinates.shape[0])
+        for i in list(range(coordinates.shape[0])):
+            val[i]=self.im[coordinates[i,0],coordinates[i,1],coordinates[i,2]]
+        
+        return coordinates,vc,val
+        
+    
+    
     def PhiTheta_corr_length(self):
         '''
 		Extract the correlation length in function of Theta and phi
@@ -208,14 +237,12 @@ class xcorr3d(im3d.image3d):
             ##### Deal with inf value
             plt.tricontourf(triang, zz, 10)
             plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
-            print(np.where(zz==mm)[0].shape)
             if len(np.where(zz==mm)[0])>1:
                 idd=np.where(zz==mm)
                 zzm=np.ones(zz.shape)
                 zzm[idd]=0                
                 plt.tricontourf(triang, zzm, 10,cmap=cm.binary_r)
                 plt.clim(1,1)
-                print('I am here')
                 
                 
             
@@ -322,7 +349,7 @@ class xcorr3d(im3d.image3d):
             
         plt.figure()
         plt.plot(xl,res)
-        plt.hold('on')
+
         plt.plot([xl[0],xl[-1]],[self.Cinf,self.Cinf])
         plt.xlabel('Distance')
         plt.ylabel('Auto-correlation value')

@@ -20,7 +20,7 @@ class image3d(object):
         self.im=data
         self.res=res
         return
-		
+    
     
     def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True):
         '''
