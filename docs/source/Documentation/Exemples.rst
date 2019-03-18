@@ -136,25 +136,17 @@ Equations
 ^^^^^^^^^
 
 For detail see Doumalin et al. 2003 (french) or Kanit et al. 2003 The
-autocorrelation :math:`C (\vec{h})` function of the function
-:math:`f(\vec{x})` reprenstion the 3D image is defined as :
+autocorrelation :math:`C (\vec{h})` function of the 3D image
+:math:`f(\vec{x})` is defined as :
 
-.. raw:: latex
-
-   \begin{equation} 
-   C (\vec{h})=\frac{\int_Vf(\vec{x})f(\vec{x}+\vec{h})dV}{\int_Vf^2(\vec{x})dV} 
-   \end{equation}
+:math:`C(\vec{h})=\frac{\int_Vf(\vec{x})f(\vec{x}+\vec{h})dV}{\int_Vf^2(\vec{x})dV}`
 
 Where :math:`\vec{x}` and :math:`\vec{x}+\vec{h}` are point describing
 the volume :math:`V` of the image.
 
 We can defined and infinite value as :
 
-.. raw:: latex
-
-   \begin{equation}
-   C_\infty=\frac{<f>^2_V}{<f^2>_V}
-   \end{equation}
+:math:`C_\infty=\frac{<f>^2_V}{<f^2>_V}`
 
 Where :math:`<.>_V` is the mean on the volume V
 
@@ -244,19 +236,11 @@ direction :math:`\vec{v}`.
 2) Autocorrelation length : integrale definition :math:`\lambda_{p2}`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. raw:: latex
-
-   \begin{equation}
-   \lambda_{p2}=\int_0^\infty (C_{\vec{v}}(r)-C_\infty) dr
-   \end{equation}
+:math:`\lambda_{p2}=\int_0^\infty (C_{\vec{v}}(r)-C_\infty) dr`
 
 In practice it is compute as :
 
-.. raw:: latex
-
-   \begin{equation}
-   \lambda_{p2}=\int_0^{X_{0,p}} (C_{\vec{v}}(r)-C_\infty) dr
-   \end{equation}
+:math:`\lambda_{p2}=\int_0^{X_{0,p}} (C_{\vec{v}}(r)-C_\infty) dr`
 
 Where :math:`X_{0,p}` is the autocorelation length in the direction p.
 

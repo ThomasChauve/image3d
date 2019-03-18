@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. image3d" href="../object.html" />
     <link rel="prev" title="Welcome to Image3d’s documentation!" href="../index.html" /> 
 </head>
 
@@ -109,6 +110,11 @@
 </li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">CLASS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../object.html">1. image3d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object.html#xcorr3d">2. xcorr3d</a></li>
 </ul>
 
             
@@ -270,11 +276,13 @@ fracture for instance</p>
 <div class="section" id="equations">
 <h4>1.3.1.1. Equations<a class="headerlink" href="#equations" title="Permalink to this headline">¶</a></h4>
 <p>For detail see Doumalin et al. 2003 (french) or Kanit et al. 2003 The
-autocorrelation <span class="math notranslate nohighlight">\(C (\vec{h})\)</span> function of the function
-<span class="math notranslate nohighlight">\(f(\vec{x})\)</span> reprenstion the 3D image is defined as :</p>
+autocorrelation <span class="math notranslate nohighlight">\(C (\vec{h})\)</span> function of the 3D image
+<span class="math notranslate nohighlight">\(f(\vec{x})\)</span> is defined as :</p>
+<p><span class="math notranslate nohighlight">\(C(\vec{h})=\frac{\int_Vf(\vec{x})f(\vec{x}+\vec{h})dV}{\int_Vf^2(\vec{x})dV}\)</span></p>
 <p>Where <span class="math notranslate nohighlight">\(\vec{x}\)</span> and <span class="math notranslate nohighlight">\(\vec{x}+\vec{h}\)</span> are point describing
 the volume <span class="math notranslate nohighlight">\(V\)</span> of the image.</p>
 <p>We can defined and infinite value as :</p>
+<p><span class="math notranslate nohighlight">\(C_\infty=\frac{&lt;f&gt;^2_V}{&lt;f^2&gt;_V}\)</span></p>
 <p>Where <span class="math notranslate nohighlight">\(&lt;.&gt;_V\)</span> is the mean on the volume V</p>
 </div>
 <div class="section" id="computation">
@@ -331,7 +339,9 @@ direction <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="autocorrelation-length-integrale-definition-lambda-p2">
 <h4>1.3.2.2. 2) Autocorrelation length : integrale definition <span class="math notranslate nohighlight">\(\lambda_{p2}\)</span><a class="headerlink" href="#autocorrelation-length-integrale-definition-lambda-p2" title="Permalink to this headline">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(\lambda_{p2}=\int_0^\infty (C_{\vec{v}}(r)-C_\infty) dr\)</span></p>
 <p>In practice it is compute as :</p>
+<p><span class="math notranslate nohighlight">\(\lambda_{p2}=\int_0^{X_{0,p}} (C_{\vec{v}}(r)-C_\infty) dr\)</span></p>
 <p>Where <span class="math notranslate nohighlight">\(X_{0,p}\)</span> is the autocorelation length in the direction p.</p>
 <p>Both autocorrelation radius can give differente result and the first
 definition <span class="math notranslate nohighlight">\(\lambda_{p1}\)</span> can even have no value. It mean that the
@@ -509,6 +519,8 @@ them :</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../object.html" class="btn btn-neutral float-right" title="1. image3d" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Image3d’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
