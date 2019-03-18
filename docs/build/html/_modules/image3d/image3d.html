@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image3d.image3d &mdash; Image3d  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Image3d
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Documentation/Exemples.html">1. Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">CLASS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../object.html">1. image3d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../object.html#xcorr3d">2. xcorr3d</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Image3d</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>image3d.image3d</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for image3d.image3d</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+
+<div class="viewcode-block" id="image3d"><a class="viewcode-back" href="../../object.html#image3d.image3d.image3d">[docs]</a><span class="k">class</span> <span class="nc">image3d</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Image3d</span>
+<span class="sd">    Voxel scalar data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">pass</span>
+
+<div class="viewcode-block" id="image3d.__init__"><a class="viewcode-back" href="../../object.html#image3d.image3d.image3d.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">res</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">		Build the image3d object</span>
+<span class="sd">        </span>
+<span class="sd">		:param data: array Nx3 dimention</span>
+<span class="sd">		:type data: np.array</span>
+<span class="sd">		:param res: resolution of the image (default 1)</span>
+<span class="sd">		:type res: float</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">=</span><span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="o">=</span><span class="n">res</span>
+        <span class="k">return</span></div>
+    
+    
+<div class="viewcode-block" id="image3d.xcorr3d"><a class="viewcode-back" href="../../object.html#image3d.image3d.image3d.xcorr3d">[docs]</a>    <span class="k">def</span> <span class="nf">xcorr3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">gray_level</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        3d autocorrelation</span>
+<span class="sd">        </span>
+<span class="sd">        :param pad: Pading value 1 or 2</span>
+<span class="sd">        :type pad: int</span>
+<span class="sd">        :param rad_Tukey: radius for the Tukey function (pixel) (attenuation function : https://fr.mathworks.com/help/signal/ref/tukeywin.html)</span>
+<span class="sd">        :type rad_Tukey: int</span>
+<span class="sd">        :return: Autocorrelation function</span>
+<span class="sd">        :rtype: xcorr3d.xcorr3d</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="kn">import</span> <span class="nn">image3d.xcorr3d</span> <span class="k">as</span> <span class="nn">xcorr3d</span>
+        <span class="n">mean_data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">rad_Tukey</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">ss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+            <span class="n">coeff</span><span class="o">=</span><span class="n">tukeywin3D</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">)</span>
+            <span class="nb">map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">*</span><span class="n">coeff</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span>
+        
+        <span class="k">if</span> <span class="n">gray_level</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pad</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">An</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="nb">map</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">Autocor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">An</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">An</span><span class="p">)))</span>
+                <span class="n">Cinf</span><span class="o">=</span><span class="n">mean_data</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">map</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">pad</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                <span class="n">ss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
+                <span class="n">sn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">])</span>
+                <span class="n">mpad</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sn</span><span class="p">)</span><span class="o">*</span><span class="n">mean_data</span>
+                <span class="n">mpad</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span>
+                <span class="n">An</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="n">mpad</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">Autocor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">An</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">An</span><span class="p">)))</span>
+                <span class="n">Cinf</span><span class="o">=</span><span class="n">mean_data</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mpad</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">pad</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span><span class="ow">and</span><span class="p">(</span><span class="n">pad</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">ss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
+                <span class="n">sn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">pad</span><span class="p">)])</span>
+                <span class="n">mpad</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sn</span><span class="p">)</span><span class="o">*</span><span class="n">mean_data</span>
+                <span class="n">mpad</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">:</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span>
+                <span class="n">An</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="n">mpad</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">Autocor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">An</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">An</span><span class="p">)))</span>
+                <span class="n">Cinf</span><span class="o">=</span><span class="n">mean_data</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mpad</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;you should not do pad higher than 2, but if you think your machine can handle it do it yourself &#39;</span>
+            
+        <span class="k">return</span> <span class="n">xcorr3d</span><span class="o">.</span><span class="n">xcorr3d</span><span class="p">(</span><span class="n">Autocor</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span><span class="n">Cinf</span><span class="p">)</span></div>
+
+		
+	
+<div class="viewcode-block" id="image3d.extract_profil"><a class="viewcode-back" href="../../object.html#image3d.image3d.image3d.extract_profil">[docs]</a>    <span class="k">def</span> <span class="nf">extract_profil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">init</span><span class="p">,</span><span class="n">end</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Extract data along a line starting at init [xi,yi,zi] and ending at end [xe,ye,ze]</span>
+<span class="sd">        </span>
+<span class="sd">        :param init: array dimention 3</span>
+<span class="sd">        :type init: np.array</span>
+<span class="sd">        :param end: array dimention 3</span>
+<span class="sd">        :type end: np.array</span>
+<span class="sd">        :return: res value along the profil</span>
+<span class="sd">        :rtype: np.array</span>
+<span class="sd">        :return: xl position along the profil</span>
+<span class="sd">        :rtype: np.array</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">radius</span><span class="o">=</span><span class="p">((</span><span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">end</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+        <span class="n">vector</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">end</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">vector</span><span class="o">=</span><span class="n">vector</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+		
+        <span class="n">res</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">radius</span><span class="p">))</span>
+        <span class="n">xl</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">radius</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">radius</span><span class="p">))):</span>
+            <span class="n">xi</span><span class="o">=</span><span class="n">init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">yi</span><span class="o">=</span><span class="n">init</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">zi</span><span class="o">=</span><span class="n">init</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">xl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">((</span><span class="n">xi</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">yi</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">zi</span><span class="o">-</span><span class="n">init</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">yi</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">zi</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">res</span><span class="p">,</span><span class="n">xl</span></div>
+
+<div class="viewcode-block" id="image3d.plot"><a class="viewcode-back" href="../../object.html#image3d.image3d.image3d.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">axis</span><span class="p">,</span><span class="n">pc</span><span class="p">,</span><span class="n">colorbar</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">):</span>
+	        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	        plot a slice of the 3d image</span>
+<span class="sd">        </span>
+<span class="sd">	        :param axis: slice perpendiculaire to the axis &#39;X&#39;,&#39;Y&#39;,&#39;Z&#39;</span>
+<span class="sd">	        :type axis: str</span>
+<span class="sd">	        :param pc: ratio of the position between 0 to 1</span>
+<span class="sd">	        :type pc: str</span>
+<span class="sd">	        &#39;&#39;&#39;</span>
+        
+	        <span class="n">ss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+        
+	        <span class="k">if</span> <span class="p">(</span><span class="n">axis</span><span class="o">==</span><span class="s1">&#39;X&#39;</span><span class="p">):</span>
+        		<span class="n">img</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)),:,:],</span><span class="n">cmap</span><span class="o">=</span><span class="n">colorbar</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">))</span>
+        		<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;+Z&#39;</span><span class="p">)</span>
+        		<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;-Y&#39;</span><span class="p">)</span>
+        	<span class="k">elif</span> <span class="p">(</span><span class="n">axis</span><span class="o">==</span><span class="s1">&#39;Y&#39;</span><span class="p">):</span>
+            		<span class="n">img</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">[:,</span><span class="nb">int</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)),:],</span><span class="n">cmap</span><span class="o">=</span><span class="n">colorbar</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">))</span>
+            		<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;+Z&#39;</span><span class="p">)</span>
+            		<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;-X&#39;</span><span class="p">)</span>
+        	<span class="k">elif</span> <span class="p">(</span><span class="n">axis</span><span class="o">==</span><span class="s1">&#39;Z&#39;</span><span class="p">):</span>
+            		<span class="n">img</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">[:,:,</span><span class="nb">int</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">))],</span><span class="n">cmap</span><span class="o">=</span><span class="n">colorbar</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">))</span>
+            		<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;+Y&#39;</span><span class="p">)</span>
+            		<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;-X&#39;</span><span class="p">)</span>
+        
+        	<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+        	<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        	<span class="k">return</span> <span class="n">img</span></div></div>
+                                                 
+                                                 
+<span class="c1"># Function                                               </span>
+<span class="k">def</span> <span class="nf">tukeywin3D</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">):</span>
+
+	<span class="n">iid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">rad_Tukey</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">)))</span>
+	<span class="n">jid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">rad_Tukey</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">)))</span>
+	<span class="n">kid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">rad_Tukey</span><span class="p">,</span><span class="n">ss</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">)))</span>
+
+	<span class="n">rid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rad_Tukey</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">rad_Tukey</span><span class="p">)))</span>
+
+	<span class="n">coeff</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+	<span class="n">r2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rad_Tukey</span><span class="p">)):</span>
+		<span class="n">r2</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">iid</span><span class="p">[</span><span class="n">i</span><span class="p">]),:,:]</span><span class="o">=</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rad_Tukey</span><span class="p">)):</span>
+		<span class="n">r2</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">jid</span><span class="p">[</span><span class="n">i</span><span class="p">]),:]</span><span class="o">=</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rad_Tukey</span><span class="p">)):</span>
+		<span class="n">r2</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">kid</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span><span class="o">=+</span><span class="n">rid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="nb">id</span><span class="o">=~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+
+	<span class="n">coeff</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">rad_Tukey</span><span class="o">*</span><span class="p">(</span><span class="n">r2</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">-</span><span class="n">rad_Tukey</span><span class="p">)))</span>	
+
+	<span class="k">return</span> <span class="n">coeff</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright CC-BY-CC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Documentation &mdash; Image3d  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Welcome to Image3d’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Image3d
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#load-the-toolbox">1.1. Load the toolbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-the-image3d-object">1.2. Build the image3d object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-an-image">1.2.1. Building an image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ploting-an-image">1.2.2. Ploting an image</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-analysis">1.3. Data analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#autocorrelation-function">1.3.1. Autocorrelation function</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#equations">1.3.1.1. Equations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#computation">1.3.1.2. Computation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#figures">1.3.1.3. Figures</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#autocorrelation-length-lambda-p">1.3.2. Autocorrelation length <span class="math notranslate nohighlight">\(\lambda_p\)</span></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#autocorrelation-length-intersection-definition-lambda-p1">1.3.2.1. 1) Autocorrelation length : intersection definition <span class="math notranslate nohighlight">\(\lambda_{p1}\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autocorrelation-length-integrale-definition-lambda-p2">1.3.2.2. 2) Autocorrelation length : integrale definition <span class="math notranslate nohighlight">\(\lambda_{p2}\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profil-along-y-axis">1.3.2.3. Profil along y axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profil-alonf-z-axis">1.3.2.4. Profil alonf z axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autocorrelation-length-in-function-of-the-orientation">1.3.2.5. Autocorrelation length in function of the orientation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submaxima-and-periodicity">1.3.3. Submaxima and periodicity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Image3d</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>1. Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/Documentation/Exemples.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation">
+<h1>1. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="load-the-toolbox">
+<h2>1.1. Load the toolbox<a class="headerlink" href="#load-the-toolbox" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">image3d.image3d</span> <span class="k">as</span> <span class="nn">image3d</span>
+<span class="kn">import</span> <span class="nn">image3d.xcorr3d</span> <span class="k">as</span> <span class="nn">xcorr3d</span>
+<span class="kn">import</span> <span class="nn">image3d.load_data</span> <span class="k">as</span> <span class="nn">load_data</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-image3d-object">
+<h2>1.2. Build the image3d object<a class="headerlink" href="#build-the-image3d-object" title="Permalink to this headline">¶</a></h2>
+<p>image3d object is taking to parameter as input :</p>
+<ol class="arabic simple">
+<li>an image which is a numpy array of dimention N<em>M</em>L (gray level
+image)</li>
+<li>a float which the the resolution of the image</li>
+</ol>
+<p>It can be read from N tiff file sorted in one folder using the function
+load_data.load_image_from_tiff (one tiff file per layer)</p>
+<p>Here we will build a synthetic image</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="section" id="building-an-image">
+<h3>1.2.1. Building an image<a class="headerlink" href="#building-an-image" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of a binary image, where 1 can be interpret as
+fracture for instance</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size</span><span class="o">=</span><span class="mi">200</span> <span class="c1">#number of voxel size³</span>
+<span class="n">center</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="c1"># image</span>
+<span class="n">im</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">])</span>
+
+
+<span class="c1"># disk image</span>
+<span class="n">rd</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">disk</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rd</span><span class="o">+</span><span class="mi">2</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rd</span><span class="o">+</span><span class="mi">2</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">&lt;</span><span class="n">rd</span><span class="o">**</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">disk</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c1"># adding disk image</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
+    <span class="n">k1</span><span class="o">=</span><span class="n">center</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">k</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="o">+</span><span class="n">j</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="mi">28</span><span class="p">)</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="o">-</span><span class="mi">0</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+
+<span class="n">res</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># resolution of the image, size of the Voxel</span>
+<span class="n">data</span><span class="o">=</span><span class="n">image3d</span><span class="o">.</span><span class="n">image3d</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ploting-an-image">
+<h3>1.2.2. Ploting an image<a class="headerlink" href="#ploting-an-image" title="Permalink to this headline">¶</a></h3>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_7_1.png" src="../_images/output_7_1.png" />
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, X section, X=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, X section, X=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_8_1.png" src="../_images/output_8_1.png" />
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Z section, Z=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, Z section, Z=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_9_1.png" src="../_images/output_9_1.png" />
+</div>
+</div>
+<div class="section" id="data-analysis">
+<h2>1.3. Data analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="autocorrelation-function">
+<h3>1.3.1. Autocorrelation function<a class="headerlink" href="#autocorrelation-function" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="equations">
+<h4>1.3.1.1. Equations<a class="headerlink" href="#equations" title="Permalink to this headline">¶</a></h4>
+<p>For detail see Doumalin et al. 2003 (french) or Kanit et al. 2003 The
+autocorrelation <span class="math notranslate nohighlight">\(C (\vec{h})\)</span> function of the function
+<span class="math notranslate nohighlight">\(f(\vec{x})\)</span> reprenstion the 3D image is defined as :</p>
+<p>Where <span class="math notranslate nohighlight">\(\vec{x}\)</span> and <span class="math notranslate nohighlight">\(\vec{x}+\vec{h}\)</span> are point describing
+the volume <span class="math notranslate nohighlight">\(V\)</span> of the image.</p>
+<p>We can defined and infinite value as :</p>
+<p>Where <span class="math notranslate nohighlight">\(&lt;.&gt;_V\)</span> is the mean on the volume V</p>
+</div>
+<div class="section" id="computation">
+<h4>1.3.1.2. Computation<a class="headerlink" href="#computation" title="Permalink to this headline">¶</a></h4>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Begining autocorrelation&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+<span class="n">autocorr</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">xcorr3d</span><span class="p">()</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;End autocorrelation&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Begining</span> <span class="n">autocorrelation</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">20</span> <span class="mi">2019</span>
+<span class="n">End</span> <span class="n">autocorrelation</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">21</span> <span class="mi">2019</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="figures">
+<h4>1.3.1.3. Figures<a class="headerlink" href="#figures" title="Permalink to this headline">¶</a></h4>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">autocorr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_13_1.png" src="../_images/output_13_1.png" />
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">autocorr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, X section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, X section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_14_1.png" src="../_images/output_14_1.png" />
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">autocorr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Y section, Z=0.5&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_15_0.png" src="../_images/output_15_0.png" />
+</div>
+</div>
+<div class="section" id="autocorrelation-length-lambda-p">
+<h3>1.3.2. Autocorrelation length <span class="math notranslate nohighlight">\(\lambda_p\)</span><a class="headerlink" href="#autocorrelation-length-lambda-p" title="Permalink to this headline">¶</a></h3>
+<p>The autocorrelation length can be defined with two different definition
+that can give differemt result.</p>
+<div class="section" id="autocorrelation-length-intersection-definition-lambda-p1">
+<h4>1.3.2.1. 1) Autocorrelation length : intersection definition <span class="math notranslate nohighlight">\(\lambda_{p1}\)</span><a class="headerlink" href="#autocorrelation-length-intersection-definition-lambda-p1" title="Permalink to this headline">¶</a></h4>
+<p>Autocorelation radius in a direction <span class="math notranslate nohighlight">\(\vec{v}\)</span> is defined as the
+postition the first intersection of <span class="math notranslate nohighlight">\(C_{\vec{v}}\)</span> and
+<span class="math notranslate nohighlight">\(C_\infty\)</span>. <span class="math notranslate nohighlight">\(C_{\vec{v}}\)</span> is the profil of <span class="math notranslate nohighlight">\(C\)</span> in the
+direction <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
+</div>
+<div class="section" id="autocorrelation-length-integrale-definition-lambda-p2">
+<h4>1.3.2.2. 2) Autocorrelation length : integrale definition <span class="math notranslate nohighlight">\(\lambda_{p2}\)</span><a class="headerlink" href="#autocorrelation-length-integrale-definition-lambda-p2" title="Permalink to this headline">¶</a></h4>
+<p>In practice it is compute as :</p>
+<p>Where <span class="math notranslate nohighlight">\(X_{0,p}\)</span> is the autocorelation length in the direction p.</p>
+<p>Both autocorrelation radius can give differente result and the first
+definition <span class="math notranslate nohighlight">\(\lambda_{p1}\)</span> can even have no value. It mean that the
+correlation length in the direction <span class="math notranslate nohighlight">\(\vec{v}\)</span> is higher than the
+sample size.</p>
+</div>
+<div class="section" id="profil-along-y-axis">
+<h4>1.3.2.3. Profil along y axis<a class="headerlink" href="#profil-along-y-axis" title="Permalink to this headline">¶</a></h4>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">center</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">end</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span>
+<span class="p">[</span><span class="n">res</span><span class="p">,</span><span class="n">xl</span><span class="p">]</span><span class="o">=</span><span class="n">autocorr</span><span class="o">.</span><span class="n">extract_profil</span><span class="p">(</span><span class="n">center</span><span class="p">,</span><span class="n">end</span><span class="p">)</span>
+<span class="nb">id</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">res</span><span class="o">&lt;</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span><span class="n">res</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$C_{[010]}=C_y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">99</span><span class="p">],[</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">],</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$C_\infty$&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">[</span><span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span><span class="n">res</span><span class="p">[</span><span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span><span class="s1">&#39;sk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\lambda_</span><span class="si">{p1}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$C_y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">xi</span><span class="o">=</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">res</span><span class="o">-</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="n">xl</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">xi</span><span class="p">,</span> <span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">xy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">xl</span><span class="p">,</span><span class="n">res</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(([</span><span class="mi">2</span><span class="p">,</span><span class="mi">99</span><span class="p">])))</span>
+<span class="n">ii</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">ie</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">xl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">xy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ie</span><span class="p">,</span><span class="n">ii</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="n">xy</span><span class="p">))</span>
+
+<span class="n">t2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="s1">&#39;vk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\lambda_</span><span class="si">{p2}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/output_17_0.png" src="../_images/output_17_0.png" />
+</div>
+<div class="section" id="profil-alonf-z-axis">
+<h4>1.3.2.4. Profil alonf z axis<a class="headerlink" href="#profil-alonf-z-axis" title="Permalink to this headline">¶</a></h4>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">center</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">end</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">end</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span>
+<span class="p">[</span><span class="n">res</span><span class="p">,</span><span class="n">xl</span><span class="p">]</span><span class="o">=</span><span class="n">autocorr</span><span class="o">.</span><span class="n">extract_profil</span><span class="p">(</span><span class="n">center</span><span class="p">,</span><span class="n">end</span><span class="p">)</span>
+<span class="nb">id</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">res</span><span class="o">&lt;</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span><span class="n">res</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$C_{[010]}=C_y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">99</span><span class="p">],[</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">],</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$C_\infty$&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">[</span><span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span><span class="n">res</span><span class="p">[</span><span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span><span class="s1">&#39;sk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\lambda_</span><span class="si">{p1}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$C_y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">xi</span><span class="o">=</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">res</span><span class="o">-</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="n">xl</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">xi</span><span class="p">,</span> <span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">xy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">xl</span><span class="p">,</span><span class="n">res</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(([</span><span class="mi">2</span><span class="p">,</span><span class="mi">99</span><span class="p">])))</span>
+<span class="n">ii</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">ie</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">xl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">]])</span>
+<span class="n">xy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ie</span><span class="p">,</span><span class="n">ii</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="n">xy</span><span class="p">))</span>
+
+<span class="n">t2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">autocorr</span><span class="o">.</span><span class="n">Cinf</span><span class="p">,</span><span class="s1">&#39;vk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\lambda_</span><span class="si">{p2}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/output_19_0.png" src="../_images/output_19_0.png" />
+</div>
+<div class="section" id="autocorrelation-length-in-function-of-the-orientation">
+<h4>1.3.2.5. Autocorrelation length in function of the orientation<a class="headerlink" href="#autocorrelation-length-in-function-of-the-orientation" title="Permalink to this headline">¶</a></h4>
+<p>The autocorelation length can be compute in every direction and than
+plot in a pole figure</p>
+<p><span class="math notranslate nohighlight">\(\mathbf{\lambda_{p1}}\)</span></p>
+<p>It show some infinty value along <strong>z</strong> axis a shown by the back marker</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Begining stereo proj&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+<span class="p">[</span><span class="n">eigvalue</span><span class="p">,</span><span class="n">eigvector</span><span class="p">,</span><span class="n">radiusmean</span><span class="p">,</span><span class="n">radiusstd</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">rmax</span><span class="p">]</span><span class="o">=</span><span class="n">autocorr</span><span class="o">.</span><span class="n">stereographic_corr_length</span><span class="p">(</span><span class="n">coeffCinf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">]),</span><span class="n">pc</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;End stereo proj&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Begining</span> <span class="n">stereo</span> <span class="n">proj</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">23</span> <span class="mi">2019</span>
+<span class="n">End</span> <span class="n">stereo</span> <span class="n">proj</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">37</span> <span class="mi">2019</span>
+</pre></div>
+</div>
+<img alt="../_images/output_21_1.png" src="../_images/output_21_1.png" />
+<p><span class="math notranslate nohighlight">\(\mathbf{\lambda_{p2}}\)</span></p>
+<p>Using the second definition does not show infinit value by contruction.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Begining stereo proj&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+<span class="p">[</span><span class="n">eigvalue</span><span class="p">,</span><span class="n">eigvector</span><span class="p">,</span><span class="n">radiusmean</span><span class="p">,</span><span class="n">radiusstd</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">rmax</span><span class="p">]</span><span class="o">=</span><span class="n">autocorr</span><span class="o">.</span><span class="n">stereographic_corr_length</span><span class="p">(</span><span class="n">coeffCinf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">]),</span><span class="n">pc</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">usePI</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;End stereo proj&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">asctime</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Begining</span> <span class="n">stereo</span> <span class="n">proj</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">38</span> <span class="mi">2019</span>
+<span class="n">End</span> <span class="n">stereo</span> <span class="n">proj</span> <span class="n">Mon</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">15</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">52</span> <span class="mi">2019</span>
+</pre></div>
+</div>
+<img alt="../_images/output_23_1.png" src="../_images/output_23_1.png" />
+</div>
+</div>
+<div class="section" id="submaxima-and-periodicity">
+<h3>1.3.3. Submaxima and periodicity<a class="headerlink" href="#submaxima-and-periodicity" title="Permalink to this headline">¶</a></h3>
+<p>The submaxima of the autocorelation function can be interesting to find
+typical distance and orientation in the image. Here is a way to find
+them :</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">coor</span><span class="p">,</span><span class="n">vc</span><span class="p">,</span><span class="n">val</span><span class="o">=</span><span class="n">autocorr</span><span class="o">.</span><span class="n">local_maxima</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Sub-maxima position <span class="math notranslate nohighlight">\(\vec{h}=[x,y,z]\)</span> and <span class="math notranslate nohighlight">\(C(\vec{h})\)</span></p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;h=[x,y,z] :&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">coor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;, C(h))=&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="p">:[</span><span class="mi">100</span> <span class="mi">100</span> <span class="mi">184</span><span class="p">],</span> <span class="n">C</span><span class="p">(</span><span class="n">h</span><span class="p">))</span><span class="o">=</span><span class="mf">0.89</span>
+<span class="n">h</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="p">:[</span><span class="mi">100</span> <span class="mi">100</span> <span class="mi">156</span><span class="p">],</span> <span class="n">C</span><span class="p">(</span><span class="n">h</span><span class="p">))</span><span class="o">=</span><span class="mf">0.93</span>
+<span class="n">h</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="p">:[</span><span class="mi">100</span> <span class="mi">100</span> <span class="mi">128</span><span class="p">],</span> <span class="n">C</span><span class="p">(</span><span class="n">h</span><span class="p">))</span><span class="o">=</span><span class="mf">0.96</span>
+</pre></div>
+</div>
+<p>Axis direction with the associate <span class="math notranslate nohighlight">\(C(\vec{h})\)</span> value</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">vc</span><span class="o">.</span><span class="n">plot_vector</span><span class="p">(</span><span class="n">val</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="n">val</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">20</span><span class="o">*</span><span class="mi">4000</span><span class="p">,</span><span class="n">cm</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">brg_r</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_29_0.png" src="../_images/output_29_0.png" />
+<p>Submaxima on the profil</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setvector3d.setvector3d</span> <span class="k">as</span> <span class="nn">sv3d</span>
+<span class="n">vc</span><span class="o">=</span><span class="n">sv3d</span><span class="o">.</span><span class="n">setvector3d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="n">autocorr</span><span class="o">.</span><span class="n">correlation_profil</span><span class="p">(</span><span class="n">vc</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coor</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">center</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="s1">&#39;vk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sub-maxima&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">Legend</span> <span class="n">at</span> <span class="mh">0x7f23bc24f2e8</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../_images/output_31_1.png" src="../_images/output_31_1.png" />
+<p>Submaxima on autocorrelation slice</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autocorr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coor</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">center</span><span class="p">,</span><span class="s1">&#39;vk&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sub-maxima&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="n">at</span> <span class="mh">0x7f23bc1fa550</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<img alt="../_images/output_33_1.png" src="../_images/output_33_1.png" />
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Image3d’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright CC-BY-CC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

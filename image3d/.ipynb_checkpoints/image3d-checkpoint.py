@@ -12,6 +12,7 @@ class image3d(object):
     def __init__(self,data,res=1):
         ''' 
 		Build the image3d object
+        
 		:param data: array Nx3 dimention
 		:type data: np.array
 		:param res: resolution of the image (default 1)
@@ -25,6 +26,7 @@ class image3d(object):
     def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True):
         '''
         3d autocorrelation
+        
         :param pad: Pading value 1 or 2
         :type pad: int
         :param rad_Tukey: radius for the Tukey function (pixel) (attenuation function : https://fr.mathworks.com/help/signal/ref/tukeywin.html)
@@ -74,6 +76,15 @@ class image3d(object):
     def extract_profil(self,init,end):
         '''
         Extract data along a line starting at init [xi,yi,zi] and ending at end [xe,ye,ze]
+        
+        :param init: array dimention 3
+        :type init: np.array
+        :param end: array dimention 3
+        :type end: np.array
+        :return: res value along the profil
+        :rtype: np.array
+        :return: xl position along the profil
+        :rtype: np.array
         '''
 
         radius=((end[0]-init[0])**2+(end[1]-init[1])**2+(end[2]-init[2])**2)**0.5

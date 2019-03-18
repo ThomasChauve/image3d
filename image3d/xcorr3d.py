@@ -18,6 +18,7 @@ class xcorr3d(im3d.image3d):
     def __init__(self,data,res,Cinf):
         '''
 		Construtor of xcorr3d object
+        
 		:param data: array Nx3 dimention
 		:type data: np.array
 		:param res: resolution of the image (default 1)
@@ -34,8 +35,9 @@ class xcorr3d(im3d.image3d):
     def local_maxima(self,nb=20,win=20):
         '''
         Detect the local maximum of the autocorrelation function
-        :param th: threshold percentage in the range [Cinf 1]
-        :type th: float
+        
+        :param nb: maximum nubmer of local maxima
+        :type nb: float
         :param win: windows size for filter NxNxN
         :type win: int
         '''
@@ -235,7 +237,7 @@ class xcorr3d(im3d.image3d):
             mm=np.max(zz[~np.isinf(zz)])
             zz[np.isinf(zz)]=mm
             ##### Deal with inf value
-            plt.tricontourf(triang, zz, 10)
+            plt.tricontourf(triang, zz,levels=np.linspace(0,np.max(zz),11))
             plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
             if len(np.where(zz==mm)[0])>1:
                 idd=np.where(zz==mm)
@@ -316,8 +318,10 @@ class xcorr3d(im3d.image3d):
     def correlation_profil(self,vector):
         ''' 
         Plot the correlation profile for a given direction vector
+        
         :param vector: unit vector length in 3 dimention
         :type vector: np.array
+        :return: figure matplotlib
         '''
         if np.linalg.norm(vector)!=1:
             vector=vector/np.linalg.norm(vector)
