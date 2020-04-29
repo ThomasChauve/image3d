@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import skimage
+import setvector3d.setvector3d as sv3d
 
 class image3d(object):
     '''
@@ -70,6 +72,7 @@ class image3d(object):
                 return 'you should not do pad higher than 2, but if you think your machine can handle it do it yourself '
             
         return xcorr3d.xcorr3d(Autocor,self.res,Cinf)
+    
 
 		
 	
@@ -115,21 +118,91 @@ class image3d(object):
 	        ss=np.shape(self.im)
         
 	        if (axis=='X'):
-        		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[1]*self.res))
+        		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[1]*self.res),origin='lower')
         		plt.xlabel('+Z')
-        		plt.ylabel('-Y')
+        		plt.ylabel('Y')
         	elif (axis=='Y'):
-            		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[2]*self.res))
+            		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[2]*self.res),origin='lower')
             		plt.xlabel('+Z')
-            		plt.ylabel('-X')
+            		plt.ylabel('X')
         	elif (axis=='Z'):
-            		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[2]*self.res))
+            		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[2]*self.res),origin='lower')
             		plt.xlabel('+Y')
-            		plt.ylabel('-X')
+            		plt.ylabel('X')
         
         	plt.axis('equal')
         	plt.colorbar(img,orientation='vertical',aspect=4)
         	return img
+        
+    def inertia_tensor(self):
+        '''
+        Compute the inertia tensor of the image and retrun the eigenvalue and eigenvector.
+        :return eigval: eigenvalue
+        :return eigvec: eigenvector
+        '''
+        inertia=skimage.measure.inertia_tensor(self.im)
+        eigval,eigvec=np.linalg.eig(inertia)
+            
+        return eigval/self.res,eigvec
+    
+    def split_img(self,size_box,option):
+        '''
+        Divide the image in sub-image of box size size_box³
+        :param size_box: size of the cubic box
+        :type size_box: np.float
+        :param option: (1) paved surface without the excess surface and without overlap (2) paved and with overlap without excess surface
+        :type option: int
+        '''
+        center_box=[]
+        sub_img=[]
+        ss=np.shape(self.im)
+        pix_sb=int(size_box/self.res)
+        nbbox=np.array(ss)/pix_sb
+        if option==1:
+            xl=np.int64(np.linspace(0,pix_sb*int(nbbox[0]),int(nbbox[0]+1)))
+            yl=np.int64(np.linspace(0,pix_sb*int(nbbox[1]),int(nbbox[1]+1)))
+            zl=np.int64(np.linspace(0,pix_sb*int(nbbox[2]),int(nbbox[2]+1)))       
+        elif option==2:
+            return print('not implemented yet'),print('TO DO')
+            
+        for i in list(range(len(xl[0:-1]))):
+            for j in list(range(len(yl[0:-1]))):
+                for k in list(range(len(zl[0:-1]))):
+                    center_box.append(np.array([xl[i]+pix_sb/2,yl[j]+pix_sb/2,zl[k]+pix_sb/2]))
+                    sub_img.append(image3d(self.im[xl[i]:xl[i+1]-1,yl[j]:yl[j+1]-1,zl[k]:zl[k+1]-1],self.res))
+
+        return center_box,sub_img
+    
+    def texture_anisotropy(self,size_box):
+        '''
+        Compute the inertia tensor on all the image for sub image of size size_box
+        '''
+        list_dict=[]
+        for sbb in size_box:
+            center_box,sub_img=self.split_img(sbb,1)
+            eigval=[]
+            eigvec=[]
+            mainvec=[]
+            cbox=[]
+            for i in list(range(len(center_box))):
+                if np.sum(sub_img[i].im[:])!=0:
+                    tmp_eigval,tmp_eigvec=sub_img[i].inertia_tensor()
+                    cbox.append(center_box[i])
+                    eigval.append(tmp_eigval)
+                    eigvec.append(tmp_eigvec)
+                    id=np.where(tmp_eigval==np.min(tmp_eigval))[0]
+                    mainvec.append(np.transpose(tmp_eigvec)[id][0])
+
+            dict={"Size box": sbb, "Center box": cbox, "Eigen value": eigval, "Eigen vector": eigvec,"Main vector": sv3d.setvector3d(mainvec)}
+
+            dict['Relative anisotropy'] = np.std(eigval,axis=1)/np.mean(eigval,axis=1)
+            dict['Fractional anisotropy'] = np.std(eigval,axis=1)/np.mean(np.multiply(eigval,eigval),axis=1)**0.5
+            dict['1-Vratio anisotropy'] = 1.-(np.array(eigval)[:,0]*np.array(eigval)[:,1]*np.array(eigval)[:,2])/(np.mean(eigval,axis=1)**3)
+            
+            list_dict.append(dict)
+        
+        
+        return list_dict
                                                  
                                                  
 # Function                                               
@@ -156,3 +229,26 @@ def tukeywin3D(ss,rad_Tukey):
 	coeff[id]=0.5*(1.+np.cos(np.pi/rad_Tukey*(r2[id]-rad_Tukey)))	
 
 	return coeff
+
+def plotell(center,eigval,eigvec,color,alpha,factor,ax):
+    # find the rotation matrix and radii of the axes
+    rotation = np.transpose(eigvec)
+    radii = factor*1.0/np.sqrt(eigval)
+
+    # calculate cartesian coordinates for the ellipsoid surface
+    #print(radii)
+    
+    u = np.linspace(0.0, 2.0 * np.pi, 60)
+    v = np.linspace(0.0, np.pi, 60)
+    x = radii[0] * np.outer(np.cos(u), np.sin(v))
+    y = radii[1] * np.outer(np.sin(u), np.sin(v))
+    z = radii[2] * np.outer(np.ones_like(u), np.cos(v))
+
+    for i in range(len(x)):
+        for j in range(len(x)):
+            [x[i,j],y[i,j],z[i,j]] = np.dot([x[i,j],y[i,j],z[i,j]], rotation) + center
+
+
+    ax.plot_surface(x, y, z,  rstride=3, cstride=3,  color=color, linewidth=0.1, alpha=alpha, shade=True)
+    
+    return

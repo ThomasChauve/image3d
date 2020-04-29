@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. Texture anisotropy analysis &mdash; Image3d  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. image3d" href="../object.html" />
+    <link rel="prev" title="1. Documentation" href="../Doc1/Exemples.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Image3d
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Doc1/Exemples.html">1. Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Texture anisotropy analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#principle">2.1. Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-artificial-image">2.2. Building a artificial image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-section-of-this-image">2.3. Plot section of this image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compute-intertia-tensor">2.4. Compute intertia tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-the-ellipsoide-associated-with-i-vec-m">2.5. Plot the ellipsoide associated with <span class="math notranslate nohighlight">\(I(\vec{M})\)</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-texture-anisotropy-analysis">2.6. Full texture anisotropy analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#to-do">2.7. To Do</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">CLASS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../object.html">1. image3d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object.html#xcorr3d">2. xcorr3d</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Image3d</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Texture anisotropy analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/Doc2/Devellopment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">image3d.image3d</span> <span class="k">as</span> <span class="nn">image3d</span>
+<span class="kn">import</span> <span class="nn">image3d.xcorr3d</span> <span class="k">as</span> <span class="nn">xcorr3d</span>
+<span class="kn">import</span> <span class="nn">image3d.load_data</span> <span class="k">as</span> <span class="nn">load_data</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+</pre></div>
+</div>
+<div class="section" id="texture-anisotropy-analysis">
+<h1><span class="section-number">2. </span>Texture anisotropy analysis<a class="headerlink" href="#texture-anisotropy-analysis" title="Permalink to this headline">¶</a></h1>
+<p>This analysis is inspired from <strong>Lehoucq et al 2015, “Analysis of image
+vs. position, scale and direction reveals pattern texture anisotropy”</strong>.</p>
+<p>It is just an extention of the 2D analysis done in the paper to a 3D
+analysis.</p>
+<div class="section" id="principle">
+<h2><span class="section-number">2.1. </span>Principle<a class="headerlink" href="#principle" title="Permalink to this headline">¶</a></h2>
+<p>The main idea is to compute the inertia tensor for a 3D image. From this
+inertia tensor we can extract anisotropic value and the principal
+direction of anisotropy.</p>
+<p>We note <span class="math notranslate nohighlight">\(\vec{M}\)</span> a 3D image, and <span class="math notranslate nohighlight">\(I(\vec{M})\)</span> the inertia
+tensor assiciated to the image <span class="math notranslate nohighlight">\(\vec{M}\)</span>. The dimention of
+<span class="math notranslate nohighlight">\(I(\vec{M})\)</span> is <span class="math notranslate nohighlight">\(3\times3\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\lambda_1\)</span>, <span class="math notranslate nohighlight">\(\lambda_2\)</span>, <span class="math notranslate nohighlight">\(\lambda_3\)</span> are the
+eigenvalue of <span class="math notranslate nohighlight">\(I(\vec{M})\)</span> associated with the eigenvector
+<span class="math notranslate nohighlight">\(\vec{e_1}\)</span>, <span class="math notranslate nohighlight">\(\vec{e_2}\)</span>, <span class="math notranslate nohighlight">\(\vec{e_3}\)</span>.</p>
+<p>Differente anisotropic parameter can be build :</p>
+<ol class="arabic simple">
+<li><p>Relative anisotropy :
+<span class="math notranslate nohighlight">\(std(\lambda_i)/\langle \lambda_i \rangle\)</span></p></li>
+<li><p>Fractional anisotropy :
+<span class="math notranslate nohighlight">\(std(\lambda_i)/\langle \lambda_i^2 \rangle ^{1/2}\)</span></p></li>
+<li><p>1-Volume ratio anisotropy :
+<span class="math notranslate nohighlight">\(1-\lambda_1\lambda_2\lambda_3/ \langle \lambda_i \rangle ^3\)</span></p></li>
+</ol>
+</div>
+<div class="section" id="building-a-artificial-image">
+<h2><span class="section-number">2.2. </span>Building a artificial image<a class="headerlink" href="#building-a-artificial-image" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">size</span><span class="o">=</span><span class="mi">200</span> <span class="c1">#number of voxel size³</span>
+<span class="n">center</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="c1"># image</span>
+<span class="n">im</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">])</span>
+
+
+<span class="c1"># disk image</span>
+<span class="n">rd</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">disk</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rd</span><span class="o">+</span><span class="mi">2</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">rd</span><span class="o">+</span><span class="mi">2</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="p">(</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">&lt;</span><span class="n">rd</span><span class="o">**</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">disk</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c1"># adding disk image</span>
+<span class="n">shift</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
+    <span class="n">k1</span><span class="o">=</span><span class="n">center</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">k</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="o">+</span><span class="n">j</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="mi">28</span><span class="p">)</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">shift</span><span class="o">+</span><span class="n">center</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">shift</span><span class="o">+</span><span class="n">center</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">shift</span><span class="o">+</span><span class="n">center</span><span class="o">-</span><span class="mi">0</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">shift</span><span class="o">+</span><span class="n">center</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">im</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">shift</span><span class="o">+</span><span class="n">center</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="n">rd</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">rd</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span><span class="n">disk</span>
+        <span class="n">shift</span><span class="o">+=</span><span class="mi">10</span>
+
+<span class="n">res</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># resolution of the image, size of the Voxel</span>
+<span class="n">data</span><span class="o">=</span><span class="n">image3d</span><span class="o">.</span><span class="n">image3d</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plot-section-of-this-image">
+<h2><span class="section-number">2.3. </span>Plot section of this image<a class="headerlink" href="#plot-section-of-this-image" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, X section, X=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, X section, X=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_5_1.png" src="../_images/output_5_1.png" />
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, Y section, Y=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_6_1.png" src="../_images/output_6_1.png" />
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image, Z section, Z=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Image, Z section, Z=0.5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_7_11.png" src="../_images/output_7_11.png" />
+</div>
+<div class="section" id="compute-intertia-tensor">
+<h2><span class="section-number">2.4. </span>Compute intertia tensor<a class="headerlink" href="#compute-intertia-tensor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">texture_anisotropy</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">im</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plot-the-ellipsoide-associated-with-i-vec-m">
+<h2><span class="section-number">2.5. </span>Plot the ellipsoide associated with <span class="math notranslate nohighlight">\(I(\vec{M})\)</span><a class="headerlink" href="#plot-the-ellipsoide-associated-with-i-vec-m" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Center box&quot;</span><span class="p">]))):</span>
+    <span class="n">image3d</span><span class="o">.</span><span class="n">plotell</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Center box&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Eigen value&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Eigen vector&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">factor</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_11_1.png" src="../_images/output_11_1.png" />
+<p>The relative anisotropy of the inertia tensor is :</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Relative anisotropy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">0.69764084</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The principal direction of the relative anisotropy can be plot in a pole
+figure :</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Main vector&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot_vector</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_15_01.png" src="../_images/output_15_01.png" />
+</div>
+<div class="section" id="full-texture-anisotropy-analysis">
+<h2><span class="section-number">2.6. </span>Full texture anisotropy analysis<a class="headerlink" href="#full-texture-anisotropy-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The main idea is to analyse the texture anisotropy at different spatial
+scale. To do so we will do this analysis for some subset of the initial
+image <span class="math notranslate nohighlight">\(\vec{M}\)</span>.</p>
+<p>For instance if <span class="math notranslate nohighlight">\(\vec{M}\)</span> as a size of
+<span class="math notranslate nohighlight">\(200\times200\times200\)</span> pixel<span class="math notranslate nohighlight">\(^3\)</span>. We can make sub image
+of dimention <span class="math notranslate nohighlight">\(100\times100\times100\)</span> pixel<span class="math notranslate nohighlight">\(^3\)</span> to do the
+analysis. In this there will be 8 sub images.</p>
+<p>Then it is possible to compute the average anisotropy for a given subset
+size
+<span class="math notranslate nohighlight">\(\langle std(\lambda_i)/\langle \lambda_i \rangle \rangle_{subset 100}\)</span>
+to access to anisotropy at a given scale.</p>
+<p>For the orientation we can plot a stereographic projection of pricipal
+direction of the inertia tensor and compute the second order
+orientation.</p>
+<p>In the following we performed the analysis for subset image of dimention
+<strong>sb</strong> :</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sb</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sb</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">10.</span>  <span class="mf">20.</span>  <span class="mf">30.</span>  <span class="mf">40.</span>  <span class="mf">50.</span>  <span class="mf">60.</span>  <span class="mf">70.</span>  <span class="mf">80.</span>  <span class="mf">90.</span> <span class="mf">100.</span> <span class="mf">110.</span> <span class="mf">120.</span> <span class="mf">130.</span> <span class="mf">140.</span>
+ <span class="mf">150.</span> <span class="mf">160.</span> <span class="mf">170.</span> <span class="mf">180.</span> <span class="mf">190.</span> <span class="mf">200.</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">texture_anisotropy</span><span class="p">(</span><span class="n">sb</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can plot the ellipsoide for the sb=10 pix and sb=200 as the patch
+building the bigger pattern are 10 pixels wide.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">cc</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+<span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">700</span><span class="p">]</span>
+<span class="n">sub</span><span class="o">=</span><span class="p">[</span><span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">analyse</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">analyse</span><span class="p">[</span><span class="s2">&quot;Center box&quot;</span><span class="p">]))):</span>
+        <span class="n">image3d</span><span class="o">.</span><span class="n">plotell</span><span class="p">(</span><span class="n">analyse</span><span class="p">[</span><span class="s2">&quot;Center box&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">analyse</span><span class="p">[</span><span class="s2">&quot;Eigen value&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">analyse</span><span class="p">[</span><span class="s2">&quot;Eigen vector&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="n">cc</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">factor</span><span class="o">=</span><span class="n">fc</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">k</span><span class="o">+=</span><span class="mi">1</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_20_1.png" src="../_images/output_20_1.png" />
+<p>It show that the ellipsoide are aligne in the y direction for nb=10 and
+aligne in a x+z direction for nb=200. it can visualized using pole
+figure :</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Main vector&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">stereoplot</span><span class="p">(</span><span class="n">contourf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Box size = 10 pix&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dd</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;Main vector&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">stereoplot</span><span class="p">(</span><span class="n">contourf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Box size = 200 pix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;Box size = 200 pix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_22_1.png" src="../_images/output_22_1.png" />
+<p>This analysis can be shown for more pixel size box.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sub</span><span class="o">=</span><span class="p">[</span><span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="n">dd</span><span class="p">[</span><span class="mi">19</span><span class="p">]]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">sub</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Main vector&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">stereoplot</span><span class="p">(</span><span class="n">contourf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Box size =&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Size box&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<img alt="../_images/output_24_0.png" src="../_images/output_24_0.png" />
+<p>We can also plot the mean anisotropy factor in function of the box size
+<span class="math notranslate nohighlight">\(\langle std(\lambda_i)/\langle \lambda_i \rangle \rangle_{subset XX}\)</span>
+:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">size_box</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dd</span><span class="p">),</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ani</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dd</span><span class="p">),</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dd</span><span class="p">))):</span>
+    <span class="n">size_box</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Size box&quot;</span><span class="p">]</span>
+    <span class="n">ani</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Relative anisotropy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">size_box</span><span class="p">,</span><span class="n">ani</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Box size : pixel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Anisotropy factor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;Anisotropy factor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/output_27_1.png" src="../_images/output_27_1.png" />
+</div>
+<div class="section" id="to-do">
+<h2><span class="section-number">2.7. </span>To Do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h2>
+<p>Add time serie analysis of image and representation like figure 7.
+Lehoucq</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../object.html" class="btn btn-neutral float-right" title="1. image3d" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Doc1/Exemples.html" class="btn btn-neutral float-left" title="1. Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright CC-BY-CC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -64,7 +64,8 @@ Uninstall
     :numbered:
     :caption: Documentation
 
-    Documentation/Exemples
+    Doc1/Exemples
+    Doc2/Devellopment
 
 .. toctree::
     :maxdepth: 1
