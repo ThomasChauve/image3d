@@ -169,14 +169,14 @@
 </div>
 <div class="section" id="module-image3d.image3d">
 <span id="function"></span><h2><span class="section-number">1.2. </span>Function<a class="headerlink" href="#module-image3d.image3d" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="image3d.image3d.image3d">
-<em class="property">class </em><code class="sig-prename descclassname">image3d.image3d.</code><code class="sig-name descname">image3d</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">res=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">image3d.image3d.</code><code class="sig-name descname">image3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">res</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Image3d
 Voxel scalar data</p>
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">res=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">res</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build the image3d object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -188,15 +188,15 @@ Voxel scalar data</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="image3d.image3d.image3d.__weakref__">
 <code class="sig-name descname">__weakref__</code><a class="headerlink" href="#image3d.image3d.image3d.__weakref__" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.extract_profil">
-<code class="sig-name descname">extract_profil</code><span class="sig-paren">(</span><em class="sig-param">init</em>, <em class="sig-param">end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.extract_profil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.extract_profil" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">extract_profil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init</span></em>, <em class="sig-param"><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.extract_profil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.extract_profil" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract data along a line starting at init [xi,yi,zi] and ending at end [xe,ye,ze]</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -220,7 +220,7 @@ Voxel scalar data</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.inertia_tensor">
 <code class="sig-name descname">inertia_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.inertia_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.inertia_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the inertia tensor of the image and retrun the eigenvalue and eigenvector.
@@ -228,7 +228,7 @@ Voxel scalar data</p>
 :return eigvec: eigenvector</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.plot">
 <code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">pc</em>, <em class="sig-param">colorbar=&lt;matplotlib.colors.ListedColormap object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot a slice of the 3d image</p>
@@ -242,9 +242,9 @@ Voxel scalar data</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.split_img">
-<code class="sig-name descname">split_img</code><span class="sig-paren">(</span><em class="sig-param">size_box</em>, <em class="sig-param">option</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.split_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.split_img" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">split_img</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size_box</span></em>, <em class="sig-param"><span class="n">option</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.split_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.split_img" title="Permalink to this definition">¶</a></dt>
 <dd><p>Divide the image in sub-image of box size size_box³
 :param size_box: size of the cubic box
 :type size_box: np.float
@@ -252,15 +252,15 @@ Voxel scalar data</p>
 :type option: int</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.texture_anisotropy">
-<code class="sig-name descname">texture_anisotropy</code><span class="sig-paren">(</span><em class="sig-param">size_box</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.texture_anisotropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.texture_anisotropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">texture_anisotropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size_box</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.texture_anisotropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.texture_anisotropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the inertia tensor on all the image for sub image of size size_box</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.image3d.image3d.xcorr3d">
-<code class="sig-name descname">xcorr3d</code><span class="sig-paren">(</span><em class="sig-param">pad=1</em>, <em class="sig-param">rad_Tukey=0</em>, <em class="sig-param">gray_level=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.xcorr3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.xcorr3d" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">xcorr3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pad</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">rad_Tukey</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">gray_level</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/image3d.html#image3d.xcorr3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.image3d.image3d.xcorr3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>3d autocorrelation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -290,11 +290,11 @@ Voxel scalar data</p>
 </div>
 <div class="section" id="id2">
 <h2><span class="section-number">2.2. </span>Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-image3d.xcorr3d"></span><dl class="class">
+<span class="target" id="module-image3d.xcorr3d"></span><dl class="py class">
 <dt id="image3d.xcorr3d.xcorr3d">
-<em class="property">class </em><code class="sig-prename descclassname">image3d.xcorr3d.</code><code class="sig-name descname">xcorr3d</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">res</em>, <em class="sig-param">Cinf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">image3d.xcorr3d.</code><code class="sig-name descname">xcorr3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">res</span></em>, <em class="sig-param"><span class="n">Cinf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>3D Autocorrelation function</p>
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.xcorr3d.xcorr3d.PhiTheta_corr_length">
 <code class="sig-name descname">PhiTheta_corr_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.PhiTheta_corr_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.PhiTheta_corr_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract the correlation length in function of Theta and phi
@@ -302,9 +302,9 @@ Theta is the angle in the plan xOy between [0,2*Pi]
 phi is the angle from z between [0,Pi/2]</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.xcorr3d.xcorr3d.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">res</em>, <em class="sig-param">Cinf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">res</span></em>, <em class="sig-param"><span class="n">Cinf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construtor of xcorr3d object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -317,9 +317,9 @@ phi is the angle from z between [0,Pi/2]</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.xcorr3d.xcorr3d.correlation_profil">
-<code class="sig-name descname">correlation_profil</code><span class="sig-paren">(</span><em class="sig-param">vector</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.correlation_profil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.correlation_profil" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">correlation_profil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vector</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.correlation_profil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.correlation_profil" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the correlation profile for a given direction vector</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -331,9 +331,9 @@ phi is the angle from z between [0,Pi/2]</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.xcorr3d.xcorr3d.local_maxima">
-<code class="sig-name descname">local_maxima</code><span class="sig-paren">(</span><em class="sig-param">nb=20</em>, <em class="sig-param">win=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.local_maxima"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.local_maxima" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">local_maxima</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nb</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">win</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.local_maxima"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.local_maxima" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detect the local maximum of the autocorrelation function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -345,9 +345,9 @@ phi is the angle from z between [0,Pi/2]</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="image3d.xcorr3d.xcorr3d.stereographic_corr_length">
-<code class="sig-name descname">stereographic_corr_length</code><span class="sig-paren">(</span><em class="sig-param">output='No'</em>, <em class="sig-param">coeffCinf=array([1])</em>, <em class="sig-param">pc=10</em>, <em class="sig-param">usePI=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.stereographic_corr_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.stereographic_corr_length" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stereographic_corr_length</code><span class="sig-paren">(</span><em class="sig-param">output='No'</em>, <em class="sig-param">coeffCinf=array([1])</em>, <em class="sig-param">pc=10</em>, <em class="sig-param">usePI=False</em>, <em class="sig-param">plotOT=False</em>, <em class="sig-param">colorbar=&lt;matplotlib.colors.ListedColormap object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image3d/xcorr3d.html#xcorr3d.stereographic_corr_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image3d.xcorr3d.xcorr3d.stereographic_corr_length" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

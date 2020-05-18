@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import skimage
 import setvector3d.setvector3d as sv3d
+import scipy
 
 class image3d(object):
     '''
@@ -118,16 +119,16 @@ class image3d(object):
 	        ss=np.shape(self.im)
         
 	        if (axis=='X'):
-        		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[1]*self.res),origin='lower')
-        		plt.xlabel('+Z')
+        		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[1]*self.res),origin='lower')
+        		plt.xlabel('Z')
         		plt.ylabel('Y')
         	elif (axis=='Y'):
-            		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[0]*self.res,0,ss[2]*self.res),origin='lower')
-            		plt.xlabel('+Z')
+            		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[0]*self.res),origin='lower')
+            		plt.xlabel('Z')
             		plt.ylabel('X')
         	elif (axis=='Z'):
-            		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[2]*self.res),origin='lower')
-            		plt.xlabel('+Y')
+            		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[0]*self.res),origin='lower')
+            		plt.xlabel('Y')
             		plt.ylabel('X')
         
         	plt.axis('equal')
@@ -184,25 +185,76 @@ class image3d(object):
             eigvec=[]
             mainvec=[]
             cbox=[]
+            center_mass=[]
+            mass=[]
+            
+            # Anisotropy image
+            tmp=np.zeros([len(center_box),3])
             for i in list(range(len(center_box))):
+                tmp[i,:]=center_box[i]
+
+            idx=len(np.unique(tmp[:,0]))
+            xx=np.unique(tmp[:,0])
+            idy=len(np.unique(tmp[:,1]))
+            yy=np.unique(tmp[:,0])
+            idz=len(np.unique(tmp[:,2]))
+            zz=xx=np.unique(tmp[:,0])
+            
+            Ani_im_RA=np.zeros([idx,idy,idz])
+            Ani_im_FA=np.zeros([idx,idy,idz])
+            Ani_im_VA=np.zeros([idx,idy,idz])
+            Ani_im_FlA=np.zeros([idx,idy,idz])
+            
+            
+            for i in list(range(len(center_box))):
+                iix=np.where(xx==center_box[i][0])[0]
+                iiy=np.where(yy==center_box[i][1])[0]
+                iiz=np.where(zz==center_box[i][2])[0]
                 if np.sum(sub_img[i].im[:])!=0:
                     tmp_eigval,tmp_eigvec=sub_img[i].inertia_tensor()
-                    cbox.append(center_box[i])
+                    cbox.append(center_box[i]*self.res)
+                    center_mass.append((center_box[i]/self.res-sbb/2+scipy.ndimage.measurements.center_of_mass(sub_img[i].im)*self.res))
+                    mass.append(np.sum(sub_img[i].im[:]))
                     eigval.append(tmp_eigval)
                     eigvec.append(tmp_eigvec)
-                    id=np.where(tmp_eigval==np.min(tmp_eigval))[0]
-                    mainvec.append(np.transpose(tmp_eigvec)[id][0])
+                    id=np.where(tmp_eigval==np.min(tmp_eigval))[0][0]
+                    mainvec.append(tmp_eigvec[:,id])
+                    Ani_im_RA[iix,iiy,iiz]=np.std(tmp_eigval)/np.mean(tmp_eigval)
+                    Ani_im_FA[iix,iiy,iiz]=np.std(tmp_eigval)/np.mean(np.multiply(tmp_eigval,tmp_eigval))**0.5
+                    Ani_im_VA[iix,iiy,iiz]=1.-tmp_eigval[0]*tmp_eigval[1]*tmp_eigval[2]/(np.mean(tmp_eigval)**3)
+                    Ani_im_FlA[iix,iiy,iiz]=tmp_eigval[2]/tmp_eigval[1]
+                else:
+                    Ani_im_RA[iix,iiy,iiz]=np.nan
+                    Ani_im_FA[iix,iiy,iiz]=np.nan
+                    Ani_im_VA[iix,iiy,iiz]=np.nan
+                    Ani_im_FlA[iix,iiy,iiz]=np.nan
+                    
+                
 
-            dict={"Size box": sbb, "Center box": cbox, "Eigen value": eigval, "Eigen vector": eigvec,"Main vector": sv3d.setvector3d(mainvec)}
-
+            dict={"Size box": sbb, "Center box": cbox, "Center mass": center_mass, "Mass": mass, "Eigen value": eigval, "Eigen vector": eigvec,"Main vector": sv3d.setvector3d(mainvec)}
+                  
+            dict['RA map']=image3d(Ani_im_RA,self.res*size_box)
+            dict['FA map']=image3d(Ani_im_FA,self.res*size_box)
+            dict['VA map']=image3d(Ani_im_VA,self.res*size_box)
+            dict['FlA map']=image3d(Ani_im_FlA,self.res*size_box)
+            
             dict['Relative anisotropy'] = np.std(eigval,axis=1)/np.mean(eigval,axis=1)
             dict['Fractional anisotropy'] = np.std(eigval,axis=1)/np.mean(np.multiply(eigval,eigval),axis=1)**0.5
-            dict['1-Vratio anisotropy'] = 1.-(np.array(eigval)[:,0]*np.array(eigval)[:,1]*np.array(eigval)[:,2])/(np.mean(eigval,axis=1)**3)
+            dict['Volume anisotropy'] = 1.-(np.array(eigval)[:,0]*np.array(eigval)[:,1]*np.array(eigval)[:,2])/(np.mean(eigval,axis=1)**3)
+            sortval=np.sort(eigval)
+            dict['Flatness anisotropy'] = np.array(sortval)[:,0]/np.array(sortval)[:,1]
             
             list_dict.append(dict)
         
         
         return list_dict
+    
+    def plotone(self,ax,alpha=0.3):
+        id=np.where(self.im==1)
+        c=np.ones(len(id[0]))
+        ax.scatter(id[0], id[1], id[2], c=c, cmap='viridis', linewidth=0.5,alpha=alpha);
+        return ax
+
                                                  
                                                  
 # Function                                               
@@ -230,10 +282,10 @@ def tukeywin3D(ss,rad_Tukey):
 
 	return coeff
 
-def plotell(center,eigval,eigvec,color,alpha,factor,ax):
+def plotell(center,eigval,eigvec,KT,ax,color='r',alpha=0.7):
     # find the rotation matrix and radii of the axes
     rotation = np.transpose(eigvec)
-    radii = factor*1.0/np.sqrt(eigval)
+    radii = (2*KT)**0.5/((eigval)**0.5)
 
     # calculate cartesian coordinates for the ellipsoid surface
     #print(radii)
@@ -252,3 +304,4 @@ def plotell(center,eigval,eigvec,color,alpha,factor,ax):
     ax.plot_surface(x, y, z,  rstride=3, cstride=3,  color=color, linewidth=0.1, alpha=alpha, shade=True)
     
     return
+

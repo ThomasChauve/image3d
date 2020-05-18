@@ -115,7 +115,7 @@ class xcorr3d(im3d.image3d):
         plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
         return
     
-    def stereographic_corr_length(self,output='No',coeffCinf=np.array([1]),pc=10,usePI=False):
+    def stereographic_corr_length(self,output='No',coeffCinf=np.array([1]),pc=10,usePI=False,plotOT=False,colorbar=cm.inferno):
         '''
         :param output: Destination of the figure file
         :type output: str
@@ -237,7 +237,7 @@ class xcorr3d(im3d.image3d):
             mm=np.max(zz[~np.isinf(zz)])
             zz[np.isinf(zz)]=mm
             ##### Deal with inf value
-            plt.tricontourf(triang, zz,levels=np.linspace(0,np.max(zz),11))
+            plt.tricontourf(triang, zz,levels=np.linspace(0,np.max(zz),11),cmap=colorbar)
             plt.colorbar(orientation='vertical',aspect=4,shrink=0.5)
             if len(np.where(zz==mm)[0])>1:
                 idd=np.where(zz==mm)
@@ -289,19 +289,20 @@ class xcorr3d(im3d.image3d):
             ########################
             # plot the eigen value #
             ########################
-            for i in list(range(3)): # Loop on the 3 eigenvalue
-                if (eigvector[j,2,i]<0):
-                    v=-eigvector[j,:,i]
-                else:
-                    v=eigvector[j,:,i]
-                    
-                phiee=np.arccos(v[2])
-                thetaee=np.arctan2(v[1],v[0])
-                xxv = np.multiply(2*np.sin(phiee/2),np.cos(thetaee))
-                yyv = np.multiply(2*np.sin(phiee/2),np.sin(thetaee))
-                    
-                plt.plot(xxv,yyv,'sk',markersize=8)
-                plt.text(xxv+0.04, yyv+0.04,str(round(eigvalue[j,i],2)))
+            if plotOT:
+                for i in list(range(3)): # Loop on the 3 eigenvalue
+                    if (eigvector[j,2,i]<0):
+                        v=-eigvector[j,:,i]
+                    else:
+                        v=eigvector[j,:,i]
+
+                    phiee=np.arccos(v[2])
+                    thetaee=np.arctan2(v[1],v[0])
+                    xxv = np.multiply(2*np.sin(phiee/2),np.cos(thetaee))
+                    yyv = np.multiply(2*np.sin(phiee/2),np.sin(thetaee))
+
+                    plt.plot(xxv,yyv,'sk',markersize=8)
+                    plt.text(xxv+0.04, yyv+0.04,str(round(eigvalue[j,i],2)))
                     
                         
             if output != 'No':
