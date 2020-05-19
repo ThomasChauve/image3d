@@ -27,7 +27,7 @@ class image3d(object):
         return
     
     
-    def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True,usePYFFTW=False):
+    def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True,usePYFFTW=False,nb_core=2):
         '''
         3d autocorrelation
         
@@ -38,6 +38,7 @@ class image3d(object):
         :return: Autocorrelation function
         :rtype: xcorr3d.xcorr3d
         '''
+        pyfftw.config.NUM_THREADS=nb_core
         
         import image3d.xcorr3d as xcorr3d
         mean_data=np.nanmean(self.im)
