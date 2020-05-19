@@ -4,6 +4,7 @@ import matplotlib.cm as cm
 import skimage
 import setvector3d.setvector3d as sv3d
 import scipy
+import pyfftw
 
 class image3d(object):
     '''
@@ -26,7 +27,7 @@ class image3d(object):
         return
     
     
-    def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True):
+    def xcorr3d(self,pad=1,rad_Tukey=0,gray_level=True,usePYFFTW=False):
         '''
         3d autocorrelation
         
@@ -50,27 +51,27 @@ class image3d(object):
         
         if gray_level:
             if pad==1:
-                An=np.fft.ifftn(np.abs(np.fft.fftn(map))**2)
-                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-                Cinf=mean_data**2/np.mean(map**2)
+                mpad=map
             elif pad==2:
                 ss=np.shape(map)
                 sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
                 mpad=np.ones(sn)*mean_data
                 mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
-                An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
-                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-                Cinf=mean_data**2/np.mean(mpad**2)
             elif (pad>1)and(pad<2):
                 ss=np.shape(map)
                 sn=np.array([int(ss[0]*pad),int(ss[1]*pad),int(ss[2]*pad)])
                 mpad=np.ones(sn)*mean_data
                 mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
-                An=np.fft.ifftn(np.abs(np.fft.fftn(mpad))**2)
-                Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
-                Cinf=mean_data**2/np.mean(mpad**2)
             else:
                 return 'you should not do pad higher than 2, but if you think your machine can handle it do it yourself '
+            
+            if usePYFFTW:
+                An=pyfftw.interfaces.numpy_fft.ifftn(np.abs(pyfftw.interfaces.numpy_fft.fftn(map))**2)
+            else:
+                An=np.fft.ifftn(np.abs(np.fft.fftn(map))**2)
+                
+            Autocor=np.abs(np.fft.fftshift(An/np.nanmax(An)))
+            Cinf=mean_data**2/np.mean(map**2)
             
         return xcorr3d.xcorr3d(Autocor,self.res,Cinf)
     
