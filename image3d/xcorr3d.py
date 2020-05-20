@@ -177,7 +177,7 @@ class xcorr3d(im3d.image3d):
             
             for j in list(range(nbimg)): # loop for the differente value of Cinf
                 if usePI:
-                    xmin[i,j]=2.*np.trapz(res-self.Cinf*coeffCinf[j],xl)
+                    xmin[i,j]=2.*np.trapz(res-self.Cinf*coeffCinf[j],xl)/(1.-self.Cinf*coeffCinf[j])
                 else:
                     id=np.where(res < self.Cinf*coeffCinf[j])
                     if np.size(id)==0:
