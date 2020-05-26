@@ -176,7 +176,7 @@ class image3d(object):
 
         return center_box,sub_img
     
-    def texture_anisotropy(self,size_box):
+    def texture_anisotropy(self,size_box,cutoff_sphere=True):
         '''
         Compute the inertia tensor on all the image for sub image of size size_box
         '''
@@ -212,11 +212,17 @@ class image3d(object):
                 iix=np.where(xx==center_box[i][0])[0]
                 iiy=np.where(yy==center_box[i][1])[0]
                 iiz=np.where(zz==center_box[i][2])[0]
-                if np.sum(sub_img[i].im[:])!=0:
-                    tmp_eigval,tmp_eigvec=sub_img[i].inertia_tensor()
+                if cutoff_sphere:
+                    tmpimg=sub_img[i].apply_sphere()
+                else:
+                    tmpimg=sub_img[i]
+                
+                if np.sum(tmpimg.im[:])!=0:
+                    tmp_eigval,tmp_eigvec=tmpimg.inertia_tensor()
+                        
                     cbox.append(center_box[i]*self.res)
-                    center_mass.append((center_box[i]/self.res-sbb/2+scipy.ndimage.measurements.center_of_mass(sub_img[i].im)*self.res))
-                    mass.append(np.sum(sub_img[i].im[:]))
+                    center_mass.append((center_box[i]/self.res-sbb/2+scipy.ndimage.measurements.center_of_mass(tmpimg.im)*self.res))
+                    mass.append(np.sum(tmpimg.im[:]))
                     eigval.append(tmp_eigval)
                     eigvec.append(tmp_eigvec)
                     id=np.where(tmp_eigval==np.min(tmp_eigval))[0][0]
@@ -256,7 +262,13 @@ class image3d(object):
         c=np.ones(len(id[0]))
         ax.scatter(id[0], id[1], id[2], c=c, cmap='viridis', linewidth=0.5,alpha=alpha);
         return ax
-
+    
+    def apply_sphere(self):
+        ss=np.shape(self.im)
+        center=np.array([int(ss[0]/2),int(ss[1]/2),int(ss[1]/2)])
+        sphim=sphere(ss, center[0],center).astype(int)
+        
+        return image3d(self.im*sphim,self.res)
                                                  
                                                  
 # Function                                               
@@ -307,3 +319,24 @@ def plotell(center,eigval,eigvec,KT,ax,color='r',alpha=0.7):
     
     return
 
+def sphere(shape, radius, position):
+    # assume shape and position are both a 3-tuple of int or float
+    # the units are pixels / voxels (px for short)
+    # radius is a int or float in px
+    semisizes = (radius,) * 3
+
+    # genereate the grid for the support points
+    # centered at the position indicated by position
+    grid = [slice(-x0, dim - x0) for x0, dim in zip(position, shape)]
+    position = np.ogrid[grid]
+    # calculate the distance of all points from `position` center
+    # scaled by the radius
+    arr = np.zeros(shape, dtype=float)
+    for x_i, semisize in zip(position, semisizes):
+        # this can be generalized for exponent != 2
+        # in which case `(x_i / semisize)`
+        # would become `np.abs(x_i / semisize)`
+        arr += (x_i / semisize) ** 2
+
+    # the inner part of the sphere will have distance below 1
+    return arr <= 1.0

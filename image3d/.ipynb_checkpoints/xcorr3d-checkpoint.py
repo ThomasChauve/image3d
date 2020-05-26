@@ -315,7 +315,6 @@ class xcorr3d(im3d.image3d):
     
     
     
-    
     def correlation_profil(self,vector):
         ''' 
         Plot the correlation profile for a given direction vector
