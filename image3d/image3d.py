@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import skimage
+import skimage.measure as skim
 import setvector3d.setvector3d as sv3d
 import scipy
 import pyfftw
@@ -143,7 +143,7 @@ class image3d(object):
         :return eigval: eigenvalue
         :return eigvec: eigenvector
         '''
-        inertia=skimage.measure.inertia_tensor(self.im)
+        inertia=skim.inertia_tensor(self.im)
         eigval,eigvec=np.linalg.eig(inertia)
             
         return eigval/self.res,eigvec
