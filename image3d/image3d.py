@@ -217,7 +217,7 @@ class image3d(object):
                 else:
                     tmpimg=sub_img[i]
                 
-                if np.sum(tmpimg.im[:])!=0:
+                if (np.sum(tmpimg.im[:])!=0 and np.sum(tmpimg.im[:])!=np.size(tmpimg.im[:])):
                     tmp_eigval,tmp_eigvec=tmpimg.inertia_tensor()
                         
                     cbox.append(center_box[i]*self.res)
