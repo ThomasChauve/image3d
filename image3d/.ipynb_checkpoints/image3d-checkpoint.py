@@ -22,7 +22,7 @@ class image3d(object):
 		:param res: resolution of the image (default 1)
 		:type res: float
 		'''
-        self.im=data
+        self.field=data
         self.res=res
         return
     
@@ -41,14 +41,14 @@ class image3d(object):
         pyfftw.config.NUM_THREADS=nb_core
         
         import image3d.xcorr3d as xcorr3d
-        mean_data=np.nanmean(self.im)
+        mean_data=np.nanmean(self.field)
         
         if rad_Tukey!=0:
-            ss=np.shape(self.im)
+            ss=np.shape(self.field)
             coeff=tukeywin3D(ss,rad_Tukey)
-            map=self.im*coeff
+            map=self.field*coeff
         else:
-            map=self.im
+            map=self.field
         
         if gray_level:
             if pad==1:
@@ -57,12 +57,12 @@ class image3d(object):
                 ss=np.shape(map)
                 sn=np.array([ss[0]*pad,ss[1]*pad,ss[2]*pad])
                 mpad=np.ones(sn)*mean_data
-                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
+                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.field
             elif (pad>1)and(pad<2):
                 ss=np.shape(map)
                 sn=np.array([int(ss[0]*pad),int(ss[1]*pad),int(ss[2]*pad)])
                 mpad=np.ones(sn)*mean_data
-                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.im
+                mpad[0:ss[0],0:ss[1],0:ss[2]]=self.field
             else:
                 return 'you should not do pad higher than 2, but if you think your machine can handle it do it yourself '
             
@@ -104,7 +104,7 @@ class image3d(object):
             yi=init[1]+i*vector[1]
             zi=init[2]+i*vector[2]
             xl[i]=((xi-init[0])**2+(yi-init[1])**2+(zi-init[2])**2)**0.5*self.res
-            res[i]=self.im[int(xi),int(yi),int(zi)]
+            res[i]=self.field[int(xi),int(yi),int(zi)]
 
         return res,xl
 
@@ -118,18 +118,18 @@ class image3d(object):
 	        :type pc: str
 	        '''
         
-	        ss=np.shape(self.im)
+	        ss=np.shape(self.field)
         
 	        if (axis=='X'):
-        		img=plt.imshow(self.im[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[1]*self.res),origin='lower')
+        		img=plt.imshow(self.field[int(pc*(ss[0]-1)),:,:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[1]*self.res),origin='lower')
         		plt.xlabel('Z')
         		plt.ylabel('Y')
         	elif (axis=='Y'):
-            		img=plt.imshow(self.im[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[0]*self.res),origin='lower')
+            		img=plt.imshow(self.field[:,int(pc*(ss[1]-1)),:],cmap=colorbar,extent=(0,ss[2]*self.res,0,ss[0]*self.res),origin='lower')
             		plt.xlabel('Z')
             		plt.ylabel('X')
         	elif (axis=='Z'):
-            		img=plt.imshow(self.im[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[0]*self.res),origin='lower')
+            		img=plt.imshow(self.field[:,:,int(pc*(ss[2]-1))],cmap=colorbar,extent=(0,ss[1]*self.res,0,ss[0]*self.res),origin='lower')
             		plt.xlabel('Y')
             		plt.ylabel('X')
         
@@ -143,7 +143,7 @@ class image3d(object):
         :return eigval: eigenvalue
         :return eigvec: eigenvector
         '''
-        inertia=skim.inertia_tensor(self.im)
+        inertia=skim.inertia_tensor(self.field)
         eigval,eigvec=np.linalg.eig(inertia)
             
         return eigval/self.res,eigvec
@@ -158,7 +158,7 @@ class image3d(object):
         '''
         center_box=[]
         sub_img=[]
-        ss=np.shape(self.im)
+        ss=np.shape(self.field)
         pix_sb=int(size_box/self.res)
         nbbox=np.array(ss)/pix_sb
         if option==1:
@@ -172,7 +172,7 @@ class image3d(object):
             for j in list(range(len(yl[0:-1]))):
                 for k in list(range(len(zl[0:-1]))):
                     center_box.append(np.array([xl[i]+pix_sb/2,yl[j]+pix_sb/2,zl[k]+pix_sb/2]))
-                    sub_img.append(image3d(self.im[xl[i]:xl[i+1]-1,yl[j]:yl[j+1]-1,zl[k]:zl[k+1]-1],self.res))
+                    sub_img.append(image3d(self.field[xl[i]:xl[i+1]-1,yl[j]:yl[j+1]-1,zl[k]:zl[k+1]-1],self.res))
 
         return center_box,sub_img
     
@@ -258,17 +258,71 @@ class image3d(object):
         return list_dict
     
     def plotone(self,ax,alpha=0.3):
-        id=np.where(self.im==1)
+        id=np.where(self.field==1)
         c=np.ones(len(id[0]))
         ax.scatter(id[0], id[1], id[2], c=c, cmap='viridis', linewidth=0.5,alpha=alpha);
         return ax
     
     def apply_sphere(self):
-        ss=np.shape(self.im)
+        ss=np.shape(self.field)
         center=np.array([int(ss[0]/2),int(ss[1]/2),int(ss[1]/2)])
         sphim=sphere(ss, center[0],center).astype(int)
         
-        return image3d(self.im*sphim,self.res)
+        return image3d(self.field*sphim,self.res)
+    
+    def smooth(self,mat=1/25*np.array([[[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]],[[0,0,0,0,0],[0,0,1,0,0],[0,1,1,1,0],[0,0,1,0,0],[0,0,0,0,0]],[[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],[[0,0,0,0,0],[0,0,1,0,0],[0,1,1,1,0],[0,0,1,0,0],[0,0,0,0,0]],[[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]]]),boundary=0, fillvalue=0):
+        '''
+        smoothing using fftconvolve
+        '''
+        
+        self.field=scipy.signal.fftconvolve(self.field,mat,mode='same')
+        
+#-------------------------------operator-----------------------------------------
+
+    def __add__(self, other):
+        '''
+        Sum of 2 maps
+        '''
+        if (type(other) is image3d):
+            return image3d(self.field+other.field,self.res)
+        elif (type(other) is float):
+            return image3d(self.field+other,self.res)
+            
+    def __sub__(self, other):
+        '''
+        Subtract of 2 maps
+        '''
+        if (type(other) is image3d):
+            return image3d(self.field-other.field,self.res)
+        elif (type(other) is float):
+            return image3d(self.field-other,self.res)
+    
+    def __mul__(self,other):
+        '''
+        Multiply case by case
+        '''
+        if (type(other) is image3d):
+            return image3d(self.field*other.field,self.res)
+        if (type(other) is float):
+            return image3d(self.field*other,self.res)
+        
+    
+    def __truediv__(self,other):
+        'Divide self by other case by case'
+        if (type(other) is image3d):
+            return image3d(self.field*1/other.field,self.res)
+        elif (type(other) is float):
+            return self*1/other
+    
+    def pow(self, nb):
+        '''
+        map power nb
+        
+        :param nb:
+        :type nb: float    
+        '''
+        
+        return image3d(np.power(self.field,nb),self.res)
                                                  
                                                  
 # Function                                               
